@@ -1,4 +1,4 @@
-package com.example.mvvmsimpletutorialseu_rickmorty.network
+package com.example.mvvmsimpletutorialseu_rickmorty.model
 
 import com.google.gson.annotations.SerializedName
 

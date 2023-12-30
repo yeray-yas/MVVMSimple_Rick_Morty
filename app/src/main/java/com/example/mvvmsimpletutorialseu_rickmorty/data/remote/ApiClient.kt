@@ -1,4 +1,4 @@
-package com.example.mvvmsimpletutorialseu_rickmorty.network
+package com.example.mvvmsimpletutorialseu_rickmorty.data.remote
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

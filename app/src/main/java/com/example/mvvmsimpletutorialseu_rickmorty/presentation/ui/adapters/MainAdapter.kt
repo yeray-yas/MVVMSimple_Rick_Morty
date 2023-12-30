@@ -1,4 +1,4 @@
-package com.example.mvvmsimpletutorialseu_rickmorty.network
+package com.example.mvvmsimpletutorialseu_rickmorty.presentation.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.mvvmsimpletutorialseu_rickmorty.R
+import com.example.mvvmsimpletutorialseu_rickmorty.model.Character
 
 class MainAdapter(private val charactersList: List<Character>) :
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.MainViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: MainAdapter.MainViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) =
         holder.bindData(charactersList[position])
 
 
