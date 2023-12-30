@@ -1,40 +1,27 @@
 package com.example.mvvmsimpletutorialseu_rickmorty.presentation.ui.characters.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mvvmsimpletutorialseu_rickmorty.data.remote.ApiClient
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.mvvmsimpletutorialseu_rickmorty.data.repository.MainRepository
 import com.example.mvvmsimpletutorialseu_rickmorty.model.Character
-import com.example.mvvmsimpletutorialseu_rickmorty.utils.ScreenState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 
 class CharacterListViewModel(
-    private val repository: MainRepository = MainRepository(ApiClient.apiService)
+    private val repository: MainRepository = MainRepository()
 ) : ViewModel() {
 
-    private var _charactersLiveData = MutableLiveData<ScreenState<List<Character>?>>()
-    val charactersLiveData: LiveData<ScreenState<List<Character>?>>
-        get() = _charactersLiveData
+    val charactersLiveData: Flow<PagingData<Character>> = Pager(
+        config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
+        pagingSourceFactory = { repository.getCharacterPagingSource() }
+    ).flow.cachedIn(viewModelScope)
 
-    init {
-        fetchCharacter()
-    }
-
-    private fun fetchCharacter() {
-
-        _charactersLiveData.postValue(ScreenState.Loading(null))
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val client = repository.getCharacters("1")
-                _charactersLiveData.postValue(ScreenState.Success(client.result))
-
-            } catch (e: Exception) {
-                _charactersLiveData.postValue(ScreenState.Error(e.message.toString(), null))
-
-            }
-        }
+    companion object {
+        private const val PAGE_SIZE = 20
     }
 }
+
+

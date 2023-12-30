@@ -52,6 +52,9 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
+    // Paging3
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
+
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     // viewModelScope

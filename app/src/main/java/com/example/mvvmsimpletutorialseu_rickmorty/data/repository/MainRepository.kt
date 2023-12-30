@@ -1,12 +1,11 @@
 package com.example.mvvmsimpletutorialseu_rickmorty.data.repository
 
-import com.example.mvvmsimpletutorialseu_rickmorty.data.remote.ApiService
+import com.example.mvvmsimpletutorialseu_rickmorty.data.paging.CharacterPagingSource
+import com.example.mvvmsimpletutorialseu_rickmorty.data.remote.ApiClient.apiService
 
-class MainRepository(private val apiService: ApiService) {
-    // Single source of truth
+class MainRepository {
 
-    // load data from API
-    suspend fun  getCharacters(page:String) = apiService.fetchCharacters(page)
+    fun getCharacterPagingSource() = CharacterPagingSource(this)
 
-
+    suspend fun getCharacters(page: String) = apiService.fetchCharacters(page)
 }

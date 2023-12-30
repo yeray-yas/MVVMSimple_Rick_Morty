@@ -5,15 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.mvvmsimpletutorialseu_rickmorty.R
 import com.example.mvvmsimpletutorialseu_rickmorty.model.Character
 
-class MainAdapter(private val charactersList: List<Character>) :
-    RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
-
+class MainAdapter : PagingDataAdapter<Character, MainAdapter.MainViewHolder>(CharacterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(
@@ -21,11 +21,9 @@ class MainAdapter(private val charactersList: List<Character>) :
         )
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) =
-        holder.bindData(charactersList[position])
-
-
-    override fun getItemCount() = charactersList.size
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+        getItem(position)?.let { holder.bindData(it) }
+    }
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(character: Character) {
@@ -36,6 +34,16 @@ class MainAdapter(private val charactersList: List<Character>) :
             image.load(character.image) {
                 transformations(CircleCropTransformation())
             }
+        }
+    }
+
+    private class CharacterDiffCallback : DiffUtil.ItemCallback<Character>() {
+        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem == newItem
         }
     }
 }
