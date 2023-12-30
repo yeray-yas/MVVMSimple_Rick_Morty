@@ -44,6 +44,7 @@ dependencies {
     val retrofitVersion = "2.9.0"
     val coilVersion = "1.3.0"
     val lifecycleVersion = "2.6.2"
+    val coroutine = "1.7.3"
 
     // Basic dependencies
     implementation("androidx.core:core-ktx:1.12.0")
@@ -53,8 +54,14 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    // viewModelScope
     implementation ("androidx.activity:activity-ktx:1.8.2")
 
+    // Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine")
+    // lifecycleScope
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")

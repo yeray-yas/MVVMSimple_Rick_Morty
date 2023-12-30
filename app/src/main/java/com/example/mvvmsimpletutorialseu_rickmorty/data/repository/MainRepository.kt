@@ -6,7 +6,7 @@ class MainRepository(private val apiService: ApiService) {
     // Single source of truth
 
     // load data from API
-fun  getCharacters(page:String) = apiService.fetchCharacters(page)
+    suspend fun  getCharacters(page:String) = apiService.fetchCharacters(page)
 
 
 }
